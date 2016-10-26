@@ -1,0 +1,28 @@
+(After discussions with Marcus)
+
+====================================
+Different systems to run tests on:
+====================================
+
+(1) Tintin now
+
+(2) Tintin as cloud (next Smog)
+
+(3) Kalkyl as cloud (current Smog)
+
+(4) Rackham (new cluster, 2*10 cores/node, 300 nodes)
+
+Of those, (1) and (3) should be possible to run right now.
+
+====================================
+Different kinds of test codes:
+====================================
+
+(1) Single-core performance test
+
+(2) Threaded performance test
+
+(3) MPI communication test like message-in-a-ring
+
+(4) Total performance test including both communication and computation
+
