@@ -1,3 +1,11 @@
+/* This is an MPI program that tries to measure communication
+   performance between two or more MPI Processes. The program sends
+   some messages between the processes, measures the time it took, and
+   prints out some results.
+
+   First version written by Elias Rudberg in October 2016.
+*/
+
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
