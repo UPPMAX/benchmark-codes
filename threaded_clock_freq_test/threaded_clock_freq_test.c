@@ -62,7 +62,8 @@ int main (int argc, char** argv) {
   printf("Now creating %d threads (in addition to main thread)...\n", nThreadsToCreate);
   double startTime_threaded = get_wall_seconds();
   pthread_t threads[nThreadsToCreate];
-  for(int i = 0; i < nThreadsToCreate; i++) {
+  int i;
+  for(i = 0; i < nThreadsToCreate; i++) {
     if(pthread_create(&threads[i], NULL, thread_work_func, NULL) != 0) {
       printf("Error: pthread_create failed.\n");
       return -1;
@@ -71,7 +72,7 @@ int main (int argc, char** argv) {
   printf("OK, threads created. Now letting main thread work...\n");
   thread_work_func(NULL);
   printf("Main thread done with work. Now waiting for other threads to finish (calling pthread_join)...\n");
-  for(int i = 0; i < nThreadsToCreate; i++) {
+  for(i = 0; i < nThreadsToCreate; i++) {
     if(pthread_join(threads[i], NULL) != 0) {
       printf("Error: pthread_join failed.\n");
       return -1;
