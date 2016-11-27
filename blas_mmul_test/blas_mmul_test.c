@@ -28,8 +28,9 @@ static double get_wall_seconds() {
 /* When calling this routine, A is supposed to point to an array of
    n*n double numbers. */
 static void fill_matrix_with_random_numbers(int n, double* A) {
-  for(int i = 0; i < n; i++)
-    for(int j = 0; j < n; j++) {
+  int i, j;
+  for(i = 0; i < n; i++)
+    for(j = 0; j < n; j++) {
       double randomNumber = rand();
       A[i*n+j] = randomNumber / RAND_MAX;
     }
@@ -41,12 +42,13 @@ static void do_naive_mmul(double* C,
 			  const double* A,
 			  const double* B,
 			  int n) {
+  int i, j, k;
   // NOTE OpenMP pragma can be insterted here, if desired.
   // #pragma omp parallel for default(shared)
-  for(int i = 0; i < n; i++)
-    for(int j = 0; j < n; j++) {
+  for(i = 0; i < n; i++)
+    for(j = 0; j < n; j++) {
       double sum = 0;
-      for(int k = 0; k < n; k++)
+      for(k = 0; k < n; k++)
 	sum += A[i*n+k] * B[k*n+j];
       C[j*n+i] = sum;
     }
@@ -58,13 +60,14 @@ static void verify_mmul_result(const double* A,
 			       int n) {
   double maxabsdiff = 0;
   int count = 0;
-  for(int i = 0; i < n; i++)
-    for(int j = 0; j < n; j++) {
+  int i, j, k;
+  for(i = 0; i < n; i++)
+    for(j = 0; j < n; j++) {
       // Verify only certain elements to save time.
       if((rand() % 5000) != 0)
 	continue;
       double sum = 0;
-      for(int k = 0; k < n; k++)
+      for(k = 0; k < n; k++)
 	sum += A[i*n+k] * B[k*n+j];
       double absdiff = fabs(C[j*n+i] - sum);
       if(absdiff > maxabsdiff)
@@ -78,7 +81,8 @@ double compare_matrices(const double* A,
 			const double* B,
 			int n) {
   double maxabsdiff = 0;
-  for(int i = 0; i < n*n; i++) {
+  int i;
+  for(i = 0; i < n*n; i++) {
     double absdiff = fabs(A[i] - B[i]);
     if(absdiff > maxabsdiff)
       maxabsdiff = absdiff;
