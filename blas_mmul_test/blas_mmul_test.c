@@ -64,7 +64,7 @@ static void verify_mmul_result(const double* A,
   for(i = 0; i < n; i++)
     for(j = 0; j < n; j++) {
       // Verify only certain elements to save time.
-      if((rand() % 5000) != 0)
+      if((rand() % 20000) != 0)
 	continue;
       double sum = 0;
       for(k = 0; k < n; k++)
