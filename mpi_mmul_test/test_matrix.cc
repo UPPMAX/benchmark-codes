@@ -61,8 +61,10 @@ int main(int argc, char* const  argv[])
     std::cout << "Calling executeMotherTask() for CreateMatrix for B..." << std::endl;
     cht::ChunkID cid_matrix_B = cht::executeMotherTask<CreateMatrix>(cid_n, cid_baseIdx1, cid_baseIdx2, cid_matType_B);
 
+    cht::resetStatistics();
     std::cout << "Calling executeMotherTask() for MatrixMultiply to compute C = A * B ..." << std::endl;
     cht::ChunkID cid_matrix_C = cht::executeMotherTask<MatrixMultiply>(cid_matrix_A, cid_matrix_B);
+    cht::reportStatistics();
 
     int nElementsToVerify = 20;
     std::cout << "Verifying result by checking " << nElementsToVerify << " C matrix elements..." << std::endl;
@@ -77,7 +79,7 @@ int main(int argc, char* const  argv[])
       cht::getChunk(cid_value, valuePtr);
       double value = *valuePtr;
       // Compute expected value for this C matrix element
-      double value_expected = compute_product_matrix_element(N, idx1, idx2);
+      double value_expected = compute_product_matrix_element(N, idx2, idx1);
       double absdiff = std::fabs(value - value_expected);
       //      std::cout << "Checking C matrix element ( " << idx1 << " , " << idx2 << " ) : value = " << value << " , value_expected = " << value_expected << " , absdiff = " << absdiff << std::endl;
       if(absdiff > max_abs_diff)

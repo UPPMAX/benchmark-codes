@@ -1,6 +1,8 @@
 CHTPATH=cht-mpi-1.1/source
 CHTINCL=-I$(CHTPATH)
 
+BLAS_LIB=OpenBLAS/libopenblas.a
+
 CC=mpiCC
 CFLAGS= -O2 -std=c++11
 
@@ -14,9 +16,9 @@ HEADER_FILES = CDouble.h CInt.h CMatrix.h CreateMatrixFromIds.h CreateMatrix.h G
 
 test_matrix: test_matrix_manager cht_worker
 
-test_matrix_manager: test_matrix.o $(WRK_OBJS) $(CHTPATH)/libcht.a
+test_matrix_manager: test_matrix.o $(WRK_OBJS) $(CHTPATH)/libcht.a $(BLAS_LIB)
 	$(CC) $(CFLAGS) $(CHTINCL) -o $@ $^
-cht_worker: $(WRK_OBJS) $(CHTPATH)/libcht.a
+cht_worker: $(WRK_OBJS) $(CHTPATH)/libcht.a $(BLAS_LIB)
 	$(CC) $(CFLAGS) $(CHTINCL) -o $@ $^
 
 %.o: %.cc $(HEADER_FILES)

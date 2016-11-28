@@ -10,7 +10,8 @@ struct CMatrix: public cht::Chunk {
   void getChildChunks(std::list<cht::ChunkID> & childChunkIDs) const;
   size_t memoryUsage() const;
   // CMatrix specific functionality
-  static const int BLOCK_SIZE = 200;
+  static const int BLOCK_SIZE = 1000;
+  static const int USE_BLAS = 1;
   CMatrix() { }
   int n; // matrix dimension
   std::vector<double> elements; // matrix elements, if lowest level
