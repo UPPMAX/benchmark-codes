@@ -11,3 +11,7 @@ tar -xzf cht-mpi-1.1.tar.gz
 cd cht-mpi-1.1
 make
 
+The above can be done using the prepare_cht_mpi.sh script.
+
+A BLAS library is also needed, OpenBLAS can be fetched and built using
+the prepare_openblas.sh script.
