@@ -25,27 +25,31 @@ static double compute_product_matrix_element(int N, int i, int j) {
 int main(int argc, char* const  argv[])
 {
   try {
-    if(argc != 3) {
-      std::cout << "Please give 2 arguments: N nWorkerProcs" << std::endl;
+    if(argc != 4) {
+      std::cout << "Please give 3 arguments: N nWorkerProcs nThreads" << std::endl;
       return -1;
     }
     long int N = atoi(argv[1]);
     int nWorkerProcs = atoi(argv[2]);
+    int nThreads = atoi(argv[3]);
     std::cout << "CMatrix::BLOCK_SIZE = " << CMatrix::BLOCK_SIZE << std::endl;
+    std::cout << "CMatrix::USE_BLAS = " << CMatrix::USE_BLAS << std::endl;
     std::cout << "N = " << N << std::endl;
     std::cout << "nWorkerProcs = " << nWorkerProcs << std::endl;
+    std::cout << "nThreads = " << nThreads << std::endl;
     size_t size_of_matrix_in_bytes = N*N*sizeof(double);
     double size_of_matrix_in_GB = (double)size_of_matrix_in_bytes / 1000000000;
     std::cout << "size_of_matrix_in_GB = " << size_of_matrix_in_GB << std::endl;
-    int nThreads = 1;
     cht::extras::setNWorkers(nWorkerProcs);
     cht::setOutputMode(cht::Output::AllInTheEnd);
     cht::extras::setNoOfWorkerThreads(nThreads);
 
     cht::extras::Cache::Mode cache_mode = cht::extras::Cache::Enabled;
     cht::extras::setCacheMode(cache_mode);
-    size_t cacheMemoryUsageLimit = 100000000;
+    size_t cacheMemoryUsageLimit = 500000000;
     cht::extras::setCacheSize(cacheMemoryUsageLimit);
+    double cacheMemoryUsageLimit_in_GB = (double)cacheMemoryUsageLimit / 1e9;
+    std::cout << "Chunk cache size is " << cacheMemoryUsageLimit_in_GB << " GB." << std::endl;
 
     cht::start();
 
